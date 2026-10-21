@@ -10,7 +10,7 @@ A assinatura original do Charles foi movida da raiz para esta pasta com o conte�
 
 As versões institucionais são imagens com o fundo preto embutido, cortadas em faixas. O app do Zoho Mail no celular descarta o fundo preto definido em HTML; com isso, o texto branco e o logo branco transparente ficavam invisíveis. Com o preto dentro das imagens, a aparência não depende do app.
 
-As faixas de telefone e e-mail são divididas em três células, e a do meio tem o link `tel:` ou `mailto:`. As larguras em porcentagem fazem a assinatura encolher por inteiro em telas estreitas. As imagens são geradas em 2x para ficarem nítidas no celular.
+Cada faixa é uma imagem na largura inteira, empilhada na mesma célula; a faixa do telefone tem o link `tel:` e a do e-mail, `mailto:`. Não há células lado a lado: com larguras em porcentagem, o navegador arredonda cada célula de um jeito em telas com escala de 125% ou 150% e as faixas desencaixam. A assinatura encolhe por inteiro em telas estreitas, e as imagens são geradas em 2x para ficarem nítidas no celular.
 
 - `assets/completas/`: assinatura inteira em 2x, base dos recortes.
 - `assets/recortes/`: faixas usadas pelos HTMLs.

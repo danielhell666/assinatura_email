@@ -5,7 +5,7 @@
 - [Daniel Nobre](assinatura-lumens-daniel-nobre.html) e [Paulo Soares](assinatura-lumens-paulo-soares.html): versões atuais.
 - [Daniel em recortes](legado/assinatura-daniel.html) e [Paulo em recortes](legado/assinatura-paulo.html): versões anteriores preservadas, com links independentes para telefone, e-mail, mapa e site.
 
-As versões atuais são a imagem completa (`assets/lumens-*-assinatura.jpg`) cortada em faixas horizontais. A faixa do telefone e a do e-mail são divididas em três células, e a do meio tem o link `tel:` ou `mailto:`. As faixas de cima e de baixo levam ao site. As larguras em porcentagem fazem a assinatura encolher por inteiro no celular, como acontecia com a imagem única.
+As versões atuais são a imagem completa (`assets/lumens-*-assinatura.jpg`) cortada em quatro faixas horizontais de largura inteira, empilhadas. A faixa do telefone tem o link `tel:`, a do e-mail tem `mailto:`, e as faixas de cima e de baixo levam ao site. A assinatura encolhe por inteiro no celular, como acontecia com a imagem única.
 
 Para recortar de novo depois de alterar a imagem completa, execute na raiz do repositório:
 

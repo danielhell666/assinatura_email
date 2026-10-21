@@ -75,8 +75,8 @@ foreach ($p in $pessoas) {
   New-Assinatura (Join-Path $root $p.Foto) $p.Nome $p.Cargo $p.TelefoneTexto $p.Email $completa
   $faixas = @(
     @{ Altura = 120; Alt = "$($p.Nome) $([char]0x2014) $($p.Cargo) | InovaThings" },
-    @{ Altura = 50; Alt = "Telefone: $($p.TelefoneTexto)"; Link = "tel:$($p.Telefone)"; Colunas = $true },
-    @{ Altura = 50; Alt = "E-mail: $($p.Email)"; Link = "mailto:$($p.Email)"; Colunas = $true },
+    @{ Altura = 50; Alt = "Telefone: $($p.TelefoneTexto)"; Link = "tel:$($p.Telefone)" },
+    @{ Altura = 50; Alt = "E-mail: $($p.Email)"; Link = "mailto:$($p.Email)" },
     @{ Altura = 52; Alt = 'CNPJ 65.301.520/0001-80' }
   )
   New-AssinaturaRecortada `
@@ -84,7 +84,6 @@ foreach ($p in $pessoas) {
     -Pasta (Join-Path $assets 'recortes') `
     -Prefixo $p.Arquivo `
     -Faixas $faixas `
-    -CortesX @(272, 620, 392) `
     -Html (Join-Path $empresa "assinatura-$($p.Arquivo)-institucional.html") `
     -Titulo "Assinatura $([char]0x2014) $($p.Nome) | InovaThings" `
     -Fundo '#000000'

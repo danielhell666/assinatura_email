@@ -15,8 +15,8 @@ $pessoas = @(
 foreach ($p in $pessoas) {
   $faixas = @(
     @{ Altura = 362; Alt = "$($p.Nome) $([char]0x2014) $($p.Cargo) | Lumens"; Link = 'https://lumens.pro.br' },
-    @{ Altura = 48; Alt = "Telefone: $($p.TelefoneTexto)"; Link = "tel:$($p.Telefone)"; Colunas = $true },
-    @{ Altura = 48; Alt = "E-mail: $($p.Email)"; Link = "mailto:$($p.Email)"; Colunas = $true },
+    @{ Altura = 48; Alt = "Telefone: $($p.TelefoneTexto)"; Link = "tel:$($p.Telefone)" },
+    @{ Altura = 48; Alt = "E-mail: $($p.Email)"; Link = "mailto:$($p.Email)" },
     @{ Altura = 150; Alt = 'Projetos, instala' + [char]0x00E7 + [char]0x00E3 + 'o, fornecimento e integra' + [char]0x00E7 + [char]0x00E3 + 'o A/V'; Link = 'https://lumens.pro.br' }
   )
   New-AssinaturaRecortada `
@@ -24,7 +24,6 @@ foreach ($p in $pessoas) {
     -Pasta (Join-Path $assets 'recortes') `
     -Prefixo $p.Arquivo `
     -Faixas $faixas `
-    -CortesX @(570, 510, 440) `
     -Extensao 'jpg' `
     -Html (Join-Path $empresa "assinatura-$($p.Arquivo).html") `
     -Titulo "Assinatura $([char]0x2014) $($p.Nome) | Lumens"

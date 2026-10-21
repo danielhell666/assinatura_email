@@ -1,7 +1,7 @@
-# Recorta uma assinatura em imagem 2x em faixas horizontais e gera o HTML.
-# Faixas com Colunas = $true viram tres celulas (esquerda, centro com link, direita),
-# o que permite links separados para telefone e e-mail sem depender de CSS de fundo.
-# Larguras em porcentagem mantem as celulas alinhadas quando o app reduz a assinatura.
+# Recorta uma assinatura em imagem 2x em faixas horizontais de largura inteira e gera o HTML.
+# Cada faixa pode ter seu proprio link (telefone, e-mail, site) sem depender de CSS de fundo.
+# As faixas ficam empilhadas na mesma celula, sem divisoes verticais: celulas lado a lado com
+# largura em porcentagem arredondam alturas diferentes em telas com escala de 125% ou 150%.
 
 Add-Type -AssemblyName System.Drawing
 
@@ -26,27 +26,13 @@ function Get-UrlPublica([string] $caminho) {
   return $script:baseUrl + (($relativo -split '/' | ForEach-Object { [Uri]::EscapeDataString($_) }) -join '/')
 }
 
-function Get-TagImagem([string] $src, [int] $largura, [string] $alt) {
-  $alt = [System.Net.WebUtility]::HtmlEncode($alt)
-  return "<img src=""$src"" width=""$largura"" alt=""$alt"" style=""display:block;width:100%;max-width:${largura}px;height:auto;border:0;outline:none;text-decoration:none;"">"
-}
-
-function Add-Link([string] $conteudo, [string] $href) {
-  if (-not $href) { return $conteudo }
-  $alvo = if ($href -match '^https?:') { ' target="_blank"' } else { '' }
-  $href = [System.Net.WebUtility]::HtmlEncode($href)
-  return "<a href=""$href""$alvo style=""display:block;font-size:0;line-height:0;text-decoration:none;"">$conteudo</a>"
-}
-
-# $Faixas: lista de @{ Altura; Alt; Link; Colunas } com medidas em pixels da imagem 2x.
-# $CortesX: tres larguras em pixels 2x (esquerda, centro, direita) usadas nas faixas com Colunas.
+# $Faixas: lista de @{ Altura; Alt; Link } com alturas em pixels da imagem 2x.
 function New-AssinaturaRecortada {
   param(
     [Parameter(Mandatory)] [string] $Imagem,
     [Parameter(Mandatory)] [string] $Pasta,
     [Parameter(Mandatory)] [string] $Prefixo,
     [Parameter(Mandatory)] [object[]] $Faixas,
-    [Parameter(Mandatory)] [int[]] $CortesX,
     [Parameter(Mandatory)] [string] $Html,
     [Parameter(Mandatory)] [string] $Titulo,
     [string] $Extensao = 'png',
@@ -54,38 +40,25 @@ function New-AssinaturaRecortada {
   )
 
   New-Item -ItemType Directory -Force -Path $Pasta | Out-Null
+  Get-ChildItem -LiteralPath $Pasta -Filter "$Prefixo-faixa*" -File | Remove-Item
   $origem = [System.Drawing.Bitmap]::new($Imagem)
-  $larguraTotal = $origem.Width / 2
-  if (($CortesX | Measure-Object -Sum).Sum -ne $origem.Width) { throw "CortesX deve somar $($origem.Width)" }
+  $largura = $origem.Width / 2
   if ((($Faixas | ForEach-Object { $_.Altura }) | Measure-Object -Sum).Sum -ne $origem.Height) { throw "As alturas das faixas devem somar $($origem.Height)" }
 
   $linhas = [System.Collections.Generic.List[string]]::new()
   $y = 0
   for ($i = 0; $i -lt $Faixas.Count; $i++) {
     $faixa = $Faixas[$i]
-    $numero = $i + 1
-    if ($faixa.Colunas) {
-      $celulas = [System.Collections.Generic.List[string]]::new()
-      $x = 0
-      $nomes = @('esq', 'link', 'dir')
-      for ($c = 0; $c -lt 3; $c++) {
-        $arquivo = Join-Path $Pasta "$Prefixo-faixa$numero-$($nomes[$c]).$Extensao"
-        Save-Recorte $origem ([System.Drawing.Rectangle]::new($x, $y, $CortesX[$c], $faixa.Altura)) $arquivo
-        $largura = $CortesX[$c] / 2
-        $porcentagem = [math]::Round($CortesX[$c] / $origem.Width * 100, 3).ToString([Globalization.CultureInfo]::InvariantCulture)
-        $alt = if ($c -eq 1) { $faixa.Alt } else { '' }
-        $conteudo = Get-TagImagem (Get-UrlPublica $arquivo) $largura $alt
-        if ($c -eq 1) { $conteudo = Add-Link $conteudo $faixa.Link }
-        $celulas.Add("<td width=""$largura"" valign=""top"" style=""width:$porcentagem%;padding:0;font-size:0;line-height:0;vertical-align:top;"">$conteudo</td>")
-        $x += $CortesX[$c]
-      }
-      $linhas.Add("    <tr><td style=""padding:0;font-size:0;line-height:0;""><table role=""presentation"" width=""100%"" cellpadding=""0"" cellspacing=""0"" border=""0"" style=""width:100%;border:0;border-spacing:0;border-collapse:collapse;table-layout:fixed;""><tr>" + ($celulas -join '') + '</tr></table></td></tr>')
-    } else {
-      $arquivo = Join-Path $Pasta "$Prefixo-faixa$numero.$Extensao"
-      Save-Recorte $origem ([System.Drawing.Rectangle]::new(0, $y, $origem.Width, $faixa.Altura)) $arquivo
-      $conteudo = Add-Link (Get-TagImagem (Get-UrlPublica $arquivo) $larguraTotal $faixa.Alt) $faixa.Link
-      $linhas.Add("    <tr><td style=""padding:0;font-size:0;line-height:0;"">$conteudo</td></tr>")
+    $arquivo = Join-Path $Pasta "$Prefixo-faixa$($i + 1).$Extensao"
+    Save-Recorte $origem ([System.Drawing.Rectangle]::new(0, $y, $origem.Width, $faixa.Altura)) $arquivo
+    $alt = [System.Net.WebUtility]::HtmlEncode($faixa.Alt)
+    $img = "<img src=""$(Get-UrlPublica $arquivo)"" width=""$largura"" alt=""$alt"" style=""display:block;width:100%;max-width:${largura}px;height:auto;border:0;outline:none;text-decoration:none;"">"
+    if ($faixa.Link) {
+      $alvo = if ($faixa.Link -match '^https?:') { ' target="_blank"' } else { '' }
+      $href = [System.Net.WebUtility]::HtmlEncode($faixa.Link)
+      $img = "<a href=""$href""$alvo style=""display:block;font-size:0;line-height:0;text-decoration:none;"">$img</a>"
     }
+    $linhas.Add("      $img")
     $y += $faixa.Altura
   }
   $origem.Dispose()
@@ -100,8 +73,10 @@ function New-AssinaturaRecortada {
   <title>$titulo</title>
 </head>
 <body style="margin:0;padding:24px;background:#ffffff;">
-  <table role="presentation" width="$larguraTotal" cellpadding="0" cellspacing="0" border="0" bgcolor="$Fundo" style="width:100%;max-width:${larguraTotal}px;background-color:$Fundo;border:0;border-spacing:0;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+  <table role="presentation" width="$largura" cellpadding="0" cellspacing="0" border="0" bgcolor="$Fundo" style="width:100%;max-width:${largura}px;background-color:$Fundo;border:0;border-spacing:0;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+    <tr><td style="padding:0;font-size:0;line-height:0;">
 $($linhas -join "`n")
+    </td></tr>
   </table>
 </body>
 </html>
