@@ -7,7 +7,7 @@ O projeto está separado por empresa ou marca:
 | [inovathings/](inovathings/README.md) | Charles (Gmail e institucional) e Daniel (institucional) |
 | [lumens/](lumens/README.md) | Daniel e Paulo, versões atuais e legado |
 | [pabline/](pabline/README.md) | Pabline Cavalcante |
-| [scripts/](scripts/) | Ferramentas comuns de prévia e validação |
+| [scripts/](scripts/) | Ferramentas comuns de prévia, validação e recorte (`recortes.ps1`) |
 
 Em cada empresa, os HTMLs prontos ficam no primeiro nível. `assets/` guarda as imagens usadas pelas assinaturas; `fontes/` e `modelos/` guardam materiais editáveis, quando existentes; `scripts/` guarda os geradores; `previews/` guarda as prévias. Versões anteriores ficam em `legado/`.
 

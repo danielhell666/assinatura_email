@@ -6,17 +6,25 @@
 
 A assinatura original do Charles foi movida da raiz para esta pasta com o conteúdo intacto. Ela continua usando fundo preto em HTML e as URLs antigas de imagem da raiz. Essas imagens foram preservadas para manter os e-mails existentes funcionando.
 
-As duas versões institucionais usam blocos de imagem com fundo preto integrado. Os blocos de telefone e e-mail continuam clicáveis. Essa mudança preserva o preto nas próprias imagens, mas não comprova a causa do comportamento relatado no celular.
+## Versões institucionais
 
-`assets/` contém os recortes das versões institucionais. `assets/originais/` contém fotos, logo e ícones usados pelo gerador, que não depende mais dos arquivos da raiz.
+As versões institucionais são imagens com o fundo preto embutido, cortadas em faixas. O app do Zoho Mail no celular descarta o fundo preto definido em HTML; com isso, o texto branco e o logo branco transparente ficavam invisíveis. Com o preto dentro das imagens, a aparência não depende do app.
 
-Para regenerar os recortes, execute na raiz do projeto:
+As faixas de telefone e e-mail são divididas em três células, e a do meio tem o link `tel:` ou `mailto:`. As larguras em porcentagem fazem a assinatura encolher por inteiro em telas estreitas. As imagens são geradas em 2x para ficarem nítidas no celular.
+
+- `assets/completas/`: assinatura inteira em 2x, base dos recortes.
+- `assets/recortes/`: faixas usadas pelos HTMLs.
+- `assets/originais/`: fotos, logo e ícones usados pelo gerador.
+- `legado/`: versões institucionais anteriores em HTML com texto, que dependem do fundo preto em HTML.
+- Os arquivos soltos em `assets/` são os recortes 1x de uma versão anterior, mantidos para preservar as URLs publicadas.
+
+Para regenerar as imagens e os HTMLs, execute na raiz do projeto:
 
 ```powershell
 .\inovathings\scripts\gerar-assets.ps1
 ```
 
-Para conferir as três assinaturas com imagens locais antes de publicar:
+Para conferir as assinaturas com imagens locais antes de publicar:
 
 ```powershell
 .\scripts\gerar-previas.ps1 -Empresa inovathings
@@ -24,4 +32,4 @@ Para conferir as três assinaturas com imagens locais antes de publicar:
 
 Abra os HTMLs de `inovathings/previews/`. Esses arquivos são só para conferência; use os HTMLs principais na instalação por URL pública.
 
-Antes de instalar no e-mail, publique a pasta `inovathings/assets/` na branch `main` do repositório: os arquivos HTML usam as URLs públicas do GitHub para carregar essas imagens em qualquer dispositivo.
+Para instalar, publique as imagens na branch `main`, abra o HTML principal no navegador, selecione a assinatura inteira e substitua a assinatura nas configurações da conta. Envie uma mensagem de teste e confira no celular.
