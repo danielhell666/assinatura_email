@@ -2,23 +2,15 @@
 
 ## Versões prontas
 
-- [Daniel Nobre](assinatura-lumens-daniel-nobre.html) e [Paulo Soares](assinatura-lumens-paulo-soares.html): versões atuais.
+- [Daniel Nobre](assinatura-lumens-daniel-nobre.html): versão atual usando a imagem completa publicada.
+- [Paulo Soares](assinatura-lumens-paulo-soares.html): versão atual usando a imagem completa publicada.
 - [Daniel em recortes](legado/assinatura-daniel.html) e [Paulo em recortes](legado/assinatura-paulo.html): versões anteriores preservadas, com links independentes para telefone, e-mail, mapa e site.
 
-As versões atuais são a imagem completa (`assets/lumens-*-assinatura.jpg`) cortada em quatro faixas horizontais de largura inteira, empilhadas. A faixa do telefone tem o link `tel:`, a do e-mail tem `mailto:`, e as faixas de cima e de baixo levam ao site. A assinatura encolhe por inteiro no celular, como acontecia com a imagem única.
-
-Para recortar de novo depois de alterar a imagem completa, execute na raiz do repositório:
-
-```powershell
-.\lumens\scripts\gerar-recortes.ps1
-```
-
-Os cortes usam as posições do telefone e do e-mail na arte atual. Se o layout da arte mudar, ajuste as alturas no script.
+As versões atuais possuem um link para o site na imagem completa. Os contatos clicáveis separadamente estão nas versões em recortes.
 
 ## Organização
 
 - `assets/`: imagens das versões publicadas; os caminhos foram preservados.
-- `assets/recortes/`: faixas usadas pelas versões atuais.
 - `legado/`: HTMLs anteriores e seus respectivos assets locais.
 - `fontes/`: logo mestre em SVG e arte de referência.
 - `modelos/assinatura-modelo.html`: modelo em HTML para gerar outras assinaturas.
