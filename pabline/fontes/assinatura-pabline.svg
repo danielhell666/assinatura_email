@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400" height="600" viewBox="0 0 1400 600" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Assinatura de e-mail de Pabline Cavalcante</title>
+  <desc id="descricao">Terapeuta Ocupacional Infantil, com telefone, e-mail, Instagram e atendimento clínico e domiciliar.</desc>
+  <defs>
+    <clipPath id="foto"><circle cx="246" cy="280" r="157"/></clipPath>
+    <linearGradient id="rosa" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#db3675"/><stop offset="1" stop-color="#bd1765"/></linearGradient>
+    <filter id="sombra" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#24436f" flood-opacity=".12"/></filter>
+  </defs>
+  <rect width="1400" height="600" fill="#fffefd"/>
+
+  <!-- moldura orgânica -->
+  <rect x="0" y="0" width="1400" height="16" fill="#d62471"/>
+  <rect x="0" y="16" width="1400" height="7" fill="#ffe252"/>
+  <rect x="0" y="0" width="18" height="600" fill="#d62471"/>
+  <rect x="18" y="0" width="8" height="600" fill="#89d6c4"/>
+  <!-- rodapé reproduzido do modelo: preenchimento curto à esquerda e duas ondas contínuas -->
+  <rect x="0" y="553" width="1400" height="8" fill="#f28ab1"/>
+  <rect x="0" y="561" width="1400" height="11" fill="#89d6c4"/>
+  <rect x="0" y="572" width="1400" height="28" fill="#d62471"/>
+
+  <!-- confetes -->
+  <g fill="#ffe252"><path d="m414 57 8 17 19 2-14 13 4 19-17-9-16 9 3-19-14-13 19-2Z"/><circle cx="907" cy="62" r="7"/><path d="m730 461 7 15 17 2-13 11 3 17-14-8-15 8 4-17-14-11 18-2Z"/></g>
+  <g fill="#f484ad"><path d="m1076 40 6 13 15 2-11 10 3 15-13-7-13 7 3-15-11-10 15-2Z"/><path d="m424 433 7 15 17 2-13 11 3 17-14-8-15 8 4-17-14-11 18-2Z"/><path d="m1038 247c-13-17-34-1-19 15l19 20 19-20c15-16-6-32-19-15Z"/></g>
+  <g fill="#8bd5c4"><path d="m691 42c-12-17-31-1-18 14l18 19 18-19c13-15-6-31-18-14Z"/><path d="m1193 166 5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2Z"/><circle cx="805" cy="31" r="7"/></g>
+  <g fill="none" stroke="#a79bdb" stroke-width="5"><circle cx="61" cy="179" r="9"/><circle cx="572" cy="34" r="9"/><circle cx="1346" cy="171" r="9"/><circle cx="1173" cy="515" r="10"/><circle cx="208" cy="510" r="10"/></g>
+
+  <!-- retrato -->
+  <circle cx="246" cy="280" r="174" fill="#d62471"/>
+  <circle cx="246" cy="280" r="164" fill="#ffe94f"/>
+  <circle cx="246" cy="280" r="154" fill="#fff" filter="url(#sombra)"/>
+  <image x="89" y="123" width="314" height="314" xlink:href="../assets/pabline.png" preserveAspectRatio="xMidYMid slice" clip-path="url(#foto)"/>
+
+  <!-- conteúdo -->
+  <g font-family="Arial Rounded MT Bold, Arial, sans-serif">
+    <text x="510" y="158" font-size="57" font-weight="700" fill="#203f70">Pabline Cavalcante</text>
+    <text x="512" y="210" font-size="30" font-weight="400" fill="#a397d4">Terapeuta Ocupacional Infantil</text>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="25" fill="#1f1f25">
+    <g transform="translate(512 276)">
+      <circle cx="18" cy="0" r="18" fill="#83d3be"/><path d="M9-9c4 9 9 13 18 17l5-5-6-5-4 3c-4-2-7-5-9-9l3-4-5-6Z" fill="#fff"/>
+      <text x="55" y="9">(11) 99999-9999</text>
+    </g>
+    <g transform="translate(512 336)">
+      <circle cx="18" cy="0" r="18" fill="#ffe156"/><rect x="6" y="-9" width="24" height="18" rx="2" fill="none" stroke="#fff" stroke-width="3"/><path d="m7-7 11 9 11-9" fill="none" stroke="#fff" stroke-width="3"/>
+      <text x="55" y="9">contato@pablinecavalcante.com.br</text>
+    </g>
+    <g transform="translate(512 396)">
+      <circle cx="18" cy="0" r="18" fill="url(#rosa)"/><rect x="8" y="-10" width="20" height="20" rx="6" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="18" cy="0" r="5" fill="none" stroke="#fff" stroke-width="2.5"/><circle cx="24" cy="-6" r="1.7" fill="#fff"/>
+      <text x="55" y="9">@pablinecavalcante.to</text>
+    </g>
+    <g transform="translate(512 456)">
+      <circle cx="18" cy="0" r="18" fill="#a397d4"/><path d="M7 0 18-9 29 0v10h-8V3h-6v7H7Z" fill="#fff"/>
+      <text x="55" y="-2">Atendimento Clínico</text><text x="55" y="28">e Domiciliar</text>
+    </g>
+  </g>
+  <image x="891" y="42" width="500" height="500" xlink:href="../assets/logo.png" preserveAspectRatio="xMidYMid meet"/>
+</svg>
