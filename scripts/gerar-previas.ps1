@@ -1,13 +1,13 @@
 [CmdletBinding()]
 param(
-  [ValidateSet('todas', 'inovathings', 'lumens', 'pabline')]
+  [ValidateSet('todas', 'ecovolt', 'inovathings', 'lumens', 'pabline')]
   [string] $Empresa = 'todas'
 )
 
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 $baseUrl = 'https://raw.githubusercontent.com/danielhell666/assinatura_email/main/'
-$empresas = if ($Empresa -eq 'todas') { @('inovathings', 'lumens', 'pabline') } else { @($Empresa) }
+$empresas = if ($Empresa -eq 'todas') { @('ecovolt', 'inovathings', 'lumens', 'pabline') } else { @($Empresa) }
 
 foreach ($nome in $empresas) {
   $pasta = Join-Path $repo $nome

@@ -1,2 +1,4 @@
 # HTMLs locais gerados para conferir imagens sem publicar no GitHub.
 /*/previews/*.html
+# Capturas intermediarias do gerador da Ecovolt.
+/ecovolt/previews/arte-*

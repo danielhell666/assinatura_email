@@ -4,7 +4,7 @@ $baseUrl = 'https://raw.githubusercontent.com/danielhell666/assinatura_email/mai
 $total = 0
 $falhas = [System.Collections.Generic.List[string]]::new()
 
-foreach ($empresa in @('inovathings', 'lumens', 'pabline')) {
+foreach ($empresa in @('ecovolt', 'inovathings', 'lumens', 'pabline')) {
   foreach ($arquivo in Get-ChildItem -LiteralPath (Join-Path $repo $empresa) -Recurse -File | Where-Object { $_.Extension -in '.html', '.svg' }) {
     $texto = Get-Content -LiteralPath $arquivo.FullName -Raw -Encoding UTF8
     foreach ($match in [regex]::Matches($texto, '(?i)(?:\bsrc|\bxlink:href)="([^"]+)"')) {

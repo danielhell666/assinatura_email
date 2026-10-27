@@ -4,6 +4,7 @@ O projeto está separado por empresa ou marca:
 
 | Pasta | Conteúdo |
 | --- | --- |
+| [ecovolt/](ecovolt/README.md) | Grupo Ecovolt: modelo e gerador; Daniel em teste |
 | [inovathings/](inovathings/README.md) | Charles (Gmail e institucional) e Daniel (institucional) |
 | [lumens/](lumens/README.md) | Daniel e Paulo, versões atuais e legado |
 | [pabline/](pabline/README.md) | Pabline Cavalcante |
@@ -20,7 +21,7 @@ Execute a partir da raiz do projeto:
 .\scripts\validar-projeto.ps1
 ```
 
-Abra os HTMLs gerados em `<empresa>/previews/`. Eles usam imagens locais e funcionam sem enviar arquivos ao GitHub. Para gerar apenas uma empresa, use `-Empresa inovathings`, `-Empresa lumens` ou `-Empresa pabline`.
+Abra os HTMLs gerados em `<empresa>/previews/`. Eles usam imagens locais e funcionam sem enviar arquivos ao GitHub. Para gerar apenas uma empresa, use `-Empresa ecovolt`, `-Empresa inovathings`, `-Empresa lumens` ou `-Empresa pabline`.
 
 As prévias HTML são geradas automaticamente e ignoradas pelo Git. Use os HTMLs principais para instalar as assinaturas que apontam para imagens públicas. Publique os assets correspondentes na branch `main` antes de copiar a assinatura para o e-mail. A validação confere os arquivos locais; ela não confirma que estão publicados nem substitui um teste no aplicativo de e-mail.
 
