@@ -13,6 +13,7 @@
     .nome { font: 700 70px 'Montserrat'; fill: #141414; }
     .cargo { font: 400 44px 'Montserrat'; fill: #585758; }
     .contato { font: 400 33px 'Open Sans'; fill: #1e1e1e; }
+    .endereco { font: 400 28px 'Open Sans'; fill: #1e1e1e; }
     .icone { fill: #88bc0c; }
     .icone-linha { fill: none; stroke: #88bc0c; stroke-width: 2; stroke-linejoin: round; }
   </style>
@@ -32,29 +33,35 @@
     {{MOLDURA_FRENTE}}
     <image href="{{MODELOS}}/base.png" width="1816" height="866"/>
     <image href="{{LOGO}}" x="672" y="94" width="1000" height="225" preserveAspectRatio="xMinYMid meet"/>
-    <text class="nome" x="658" y="430" data-max="658">{{NOME}}</text>
-    <text class="cargo" x="660" y="477" data-max="658">{{CARGO}}</text>
-    <rect x="661" y="499" width="100" height="8" rx="4" class="icone"/>
-    <!-- Contatos: icones em caixa 24 x 24 ampliada para 36 px, linhas a cada 54 px. -->
-    <g transform="translate(665 534) scale(1.5)">
+    <text class="nome" x="658" y="416" data-max="658">{{NOME}}</text>
+    <text class="cargo" x="660" y="463" data-max="658">{{CARGO}}</text>
+    <rect x="661" y="485" width="100" height="8" rx="4" class="icone"/>
+    <!-- Contatos: icones em caixa 24 x 24 ampliada para 36 px, linhas a cada 44 px.
+         A posicao de cada linha define as faixas de link em scripts/gerar-assinatura.ps1. -->
+    <g transform="translate(665 518) scale(1.5)">
       <path class="icone" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
     </g>
-    <g transform="translate(665 588) scale(1.5)">
+    <g transform="translate(665 562) scale(1.5)">
       <rect class="icone-linha" x="2.5" y="5" width="19" height="14" rx="1.5"/>
       <path class="icone-linha" d="M3 6.5l9 6.5 9-6.5"/>
     </g>
-    <g transform="translate(665 642) scale(1.5)">
+    <g transform="translate(665 606) scale(1.5)">
       <circle class="icone-linha" cx="12" cy="12" r="9.5"/>
       <ellipse class="icone-linha" cx="12" cy="12" rx="4" ry="9.5"/>
       <path class="icone-linha" d="M2.5 12h19M4 7.5h16M4 16.5h16"/>
     </g>
-    <g transform="translate(665 696) scale(1.5)">
+    <g transform="translate(665 650) scale(1.5)">
       <path class="icone" d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
     </g>
-    <text class="contato" x="738" y="563" data-max="582">{{TELEFONE}}</text>
-    <text class="contato" x="738" y="617" data-max="582">{{EMAIL}}</text>
-    <text class="contato" x="738" y="671" data-max="582">{{SITE}}</text>
-    <text class="contato" x="738" y="725" data-max="582">CNPJ {{CNPJ}}</text>
+    <g transform="translate(665 696) scale(1.5)">
+      <path class="icone" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </g>
+    <text class="contato" x="738" y="547" data-max="582">{{TELEFONE}}</text>
+    <text class="contato" x="738" y="591" data-max="582">{{EMAIL}}</text>
+    <text class="contato" x="738" y="635" data-max="582">{{SITE}}</text>
+    <text class="contato" x="738" y="679" data-max="582">CNPJ {{CNPJ}}</text>
+    <text class="endereco" x="738" y="714" data-max="582">{{ENDERECO_1}}</text>
+    <text class="endereco" x="738" y="744" data-max="582">{{ENDERECO_2}}</text>
   </svg>
   <script>
     // Reduz a fonte de textos longos para nao invadir a coluna de servicos.

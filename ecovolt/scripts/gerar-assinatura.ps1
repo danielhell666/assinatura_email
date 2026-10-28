@@ -1,15 +1,20 @@
 # Gera a assinatura de uma pessoa: preenche modelos/arte.html, captura a arte em 2x
-# com o Chrome (ou Edge) sem janela e cria o HTML com a imagem unica e o link do site.
+# com o Chrome (ou Edge) sem janela, recorta em faixas de largura inteira e cria o HTML com
+# um link por faixa: telefone (tel:), e-mail (mailto:), mapa do endereco e site.
 [CmdletBinding()]
 param(
   [Parameter(Mandatory)] [string] $Nome,
   [Parameter(Mandatory)] [string] $Cargo,
   [Parameter(Mandatory)] [string] $Email,
   [Parameter(Mandatory)] [string] $Foto,
-  # Dados comuns da empresa (DADOS EMAIL.docx); o endereco ficou de fora por espaco.
+  # Dados comuns da empresa (DADOS EMAIL.docx).
   [string] $Telefone = '(61) 3963-3959',
   [string] $Cnpj = '26.762.139/0001-66',
   [string] $SiteUrl = 'https://www.grupoecovolt.com.br',
+  # Duas linhas na arte; o link do mapa usa o endereco completo.
+  [string] $Endereco1 = 'SHIN CA 01 Lote A, Bloco A, Sala 233',
+  [string] $Endereco2 = 'Lago Norte, Bras' + [char]0x00ED + 'lia - DF, 71503-501',
+  [string] $EnderecoMapa = 'Setor Shin CA 01 Lote A Bloco A, Sala 233, Lago Norte, Bras' + [char]0x00ED + 'lia - DF, 71503-501',
   # Ajustes da foto, em pixels da arte de referencia (1816 x 866).
   [double] $FotoZoom = 1,
   [double] $FotoDeslocX = 0,
@@ -21,8 +26,8 @@ Add-Type -AssemblyName System.Drawing
 
 $empresa = Split-Path -Parent $PSScriptRoot
 $repo = Split-Path -Parent $empresa
-$baseUrl = 'https://raw.githubusercontent.com/danielhell666/assinatura_email/main/'
 $cultura = [Globalization.CultureInfo]::InvariantCulture
+. (Join-Path $repo 'scripts\recortes.ps1')
 
 function ConvertTo-HtmlText([string] $Value) {
   [System.Net.WebUtility]::HtmlEncode($Value)
@@ -64,6 +69,8 @@ $valores = @{
   '{{TELEFONE}}'    = ConvertTo-HtmlText $Telefone
   '{{EMAIL}}'       = ConvertTo-HtmlText $Email
   '{{CNPJ}}'        = ConvertTo-HtmlText $Cnpj
+  '{{ENDERECO_1}}'  = ConvertTo-HtmlText $Endereco1
+  '{{ENDERECO_2}}'  = ConvertTo-HtmlText $Endereco2
   '{{SITE}}'        = ConvertTo-HtmlText ($SiteUrl -replace '^https?://', '').TrimEnd('/')
   '{{MODELOS}}'     = Get-UrlRelativa $previas (Join-Path $empresa 'modelos')
   '{{LOGO}}'        = Get-UrlRelativa $previas (Join-Path $assets 'logo.png')
@@ -103,27 +110,34 @@ try {
   $imagem.Dispose()
 }
 
-$src = $baseUrl + 'ecovolt/assets/' + [IO.Path]::GetFileName($jpg)
+# Faixas de largura inteira cortadas entre as linhas de contato (coordenadas da arte, 866 de altura).
+# Cada contato com link ocupa a propria faixa; o restante leva o link do site.
 $travessao = [char]0x2014
-$alt = ConvertTo-HtmlText "$Nome $travessao $Cargo | Grupo Ecovolt"
-$titulo = ConvertTo-HtmlText "Assinatura $travessao $Nome | Grupo Ecovolt"
-$site = ConvertTo-HtmlText $SiteUrl
-$html = @"
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>$titulo</title>
-</head>
-<body style="margin:0;padding:24px;background:#eef1f4;">
-  <table role="presentation" width="760" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;max-width:760px;background:#ffffff;background-color:#ffffff;border:0;border-spacing:0;border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
-    <tr><td width="760" valign="top" bgcolor="#ffffff" style="width:760px;padding:0;background:#ffffff;background-color:#ffffff;font-size:0;line-height:0;vertical-align:top;"><a href="$site" target="_blank" style="display:block;font-size:0;line-height:0;text-decoration:none;"><img src="$src" width="760" height="362" alt="$alt" style="display:block;width:100%;max-width:760px;height:auto;border:0;outline:none;text-decoration:none;"></a></td></tr>
-  </table>
-</body>
-</html>
-"@
+$escala = 724 / 866
+$cortes = 0, 508, 558, 602, 646, 690, 768, 866 | ForEach-Object { [int][math]::Round($_ * $escala) }
+$digitos = $Telefone -replace '\D', ''
+$mapa = 'https://www.google.com/maps/search/?api=1&query=' + [Uri]::EscapeDataString($EnderecoMapa)
+$destinos = @(
+  @{ Alt = "$Nome $travessao $Cargo | Grupo Ecovolt"; Link = $SiteUrl },
+  @{ Alt = "Telefone: $Telefone"; Link = "tel:+55$digitos" },
+  @{ Alt = "E-mail: $Email"; Link = "mailto:$Email" },
+  @{ Alt = "Site: $($SiteUrl -replace '^https?://', '')"; Link = $SiteUrl },
+  @{ Alt = "CNPJ $Cnpj" },
+  @{ Alt = "Endere$([char]0x00E7)o: $Endereco1, $Endereco2"; Link = $mapa },
+  @{ Alt = 'Inova' + [char]0x00E7 + [char]0x00E3 + 'o | Efici' + [char]0x00EA + 'ncia | Tecnologia'; Link = $SiteUrl }
+)
+$faixas = for ($i = 0; $i -lt $destinos.Count; $i++) {
+  $destinos[$i] + @{ Altura = $cortes[$i + 1] - $cortes[$i] }
+}
 $htmlPath = Join-Path $empresa "assinatura-ecovolt-$slug.html"
-Set-Content -LiteralPath $htmlPath -Value $html -Encoding UTF8 -NoNewline
+New-AssinaturaRecortada `
+  -Imagem $png `
+  -Pasta (Join-Path $assets 'recortes') `
+  -Prefixo "ecovolt-$slug" `
+  -Faixas $faixas `
+  -Html $htmlPath `
+  -Titulo "Assinatura $travessao $Nome | Grupo Ecovolt" `
+  -Extensao 'jpg' `
+  -Fundo '#fefefe' | Out-Null
 Write-Output $jpg
 Write-Output $htmlPath

@@ -4,7 +4,7 @@ O projeto está separado por empresa ou marca:
 
 | Pasta | Conteúdo |
 | --- | --- |
-| [ecovolt/](ecovolt/README.md) | Grupo Ecovolt: modelo e gerador; Daniel em teste |
+| [ecovolt/](ecovolt/README.md) | Grupo Ecovolt: modelo e gerador, com links de telefone, e-mail e mapa; Daniel em teste |
 | [inovathings/](inovathings/README.md) | Charles (Gmail e institucional) e Daniel (institucional) |
 | [lumens/](lumens/README.md) | Daniel e Paulo, versões atuais e legado |
 | [pabline/](pabline/README.md) | Pabline Cavalcante |
