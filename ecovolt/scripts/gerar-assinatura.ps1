@@ -11,9 +11,8 @@ param(
   [string] $Telefone = '(61) 3963-3959',
   [string] $Cnpj = '26.762.139/0001-66',
   [string] $SiteUrl = 'https://www.grupoecovolt.com.br',
-  # Duas linhas na arte; o link do mapa usa o endereco completo.
-  [string] $Endereco1 = 'SHIN CA 01 Lote A, Bloco A, Sala 233',
-  [string] $Endereco2 = 'Lago Norte, Bras' + [char]0x00ED + 'lia - DF, 71503-501',
+  # Versao curta mostrada na arte; o link do mapa usa o endereco completo.
+  [string] $Endereco = 'SHIN CA 01, Bl. A, Sala 233 - Bras' + [char]0x00ED + 'lia',
   [string] $EnderecoMapa = 'Setor Shin CA 01 Lote A Bloco A, Sala 233, Lago Norte, Bras' + [char]0x00ED + 'lia - DF, 71503-501',
   # Ajustes da foto, em pixels da arte de referencia (1816 x 866).
   [double] $FotoZoom = 1,
@@ -69,8 +68,7 @@ $valores = @{
   '{{TELEFONE}}'    = ConvertTo-HtmlText $Telefone
   '{{EMAIL}}'       = ConvertTo-HtmlText $Email
   '{{CNPJ}}'        = ConvertTo-HtmlText $Cnpj
-  '{{ENDERECO_1}}'  = ConvertTo-HtmlText $Endereco1
-  '{{ENDERECO_2}}'  = ConvertTo-HtmlText $Endereco2
+  '{{ENDERECO}}'    = ConvertTo-HtmlText $Endereco
   '{{SITE}}'        = ConvertTo-HtmlText ($SiteUrl -replace '^https?://', '').TrimEnd('/')
   '{{MODELOS}}'     = Get-UrlRelativa $previas (Join-Path $empresa 'modelos')
   '{{LOGO}}'        = Get-UrlRelativa $previas (Join-Path $assets 'logo.png')
@@ -123,7 +121,7 @@ $destinos = @(
   @{ Alt = "E-mail: $Email"; Link = "mailto:$Email" },
   @{ Alt = "Site: $($SiteUrl -replace '^https?://', '')"; Link = $SiteUrl },
   @{ Alt = "CNPJ $Cnpj" },
-  @{ Alt = "Endere$([char]0x00E7)o: $Endereco1, $Endereco2"; Link = $mapa },
+  @{ Alt = "Endere$([char]0x00E7)o: $Endereco"; Link = $mapa },
   @{ Alt = 'Inova' + [char]0x00E7 + [char]0x00E3 + 'o | Efici' + [char]0x00EA + 'ncia | Tecnologia'; Link = $SiteUrl }
 )
 $faixas = for ($i = 0; $i -lt $destinos.Count; $i++) {

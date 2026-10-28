@@ -22,7 +22,7 @@ Cada assinatura é uma imagem 2x com os dados embutidos, cortada em faixas de la
 | Endereço | Google Maps (busca pelo endereço completo) |
 | Rodapé (Inovação, Eficiência, Tecnologia) | site |
 
-O link vale pela faixa inteira, não só pelo texto: tocar na foto, ao lado do telefone, também liga. O bloco de contatos tem telefone, e-mail, site, CNPJ e endereço em duas linhas. A arte segue o modelo `fontes/Cartão Corporativo Grupo Ecovolt.png`. Os dados comuns vêm de `DADOS EMAIL.docx` e são os valores padrão do gerador.
+O link vale pela faixa inteira, não só pelo texto: tocar na foto, ao lado do telefone, também liga. O bloco de contatos tem telefone, e-mail, site, CNPJ e endereço resumido. A arte segue o modelo `fontes/Cartão Corporativo Grupo Ecovolt.png`. Os dados comuns vêm de `DADOS EMAIL.docx` e são os valores padrão do gerador.
 
 ## Organização
 
@@ -57,6 +57,6 @@ O script usa o Chrome (ou o Edge) sem janela para capturar a arte em 1520 x 724 
 - `assinatura-ecovolt-<nome>.html`: assinatura com as faixas publicadas e seus links;
 - `previews/arte-<nome>.html` e `.png`: arte preenchida e captura bruta, para conferência (ignoradas pelo Git).
 
-Parâmetros opcionais com os dados comuns como padrão: `-Telefone`, `-Cnpj`, `-SiteUrl`, `-Endereco1`, `-Endereco2` (as duas linhas da arte) e `-EnderecoMapa` (endereço completo do link do mapa). Se mudar a posição das linhas em `modelos/arte.html`, ajuste os cortes das faixas em `gerar-assinatura.ps1`. Os ajustes de enquadramento `-FotoZoom`, `-FotoDeslocX` e `-FotoDeslocY` usam pixels da arte de referência (1816 x 866). A foto é multiplicada sobre um cinza-claro para que fundos brancos não se confundam com o cartão. Textos longos têm a fonte reduzida automaticamente para não invadir a coluna de serviços.
+Parâmetros opcionais com os dados comuns como padrão: `-Telefone`, `-Cnpj`, `-SiteUrl`, `-Endereco` (versão curta mostrada na arte) e `-EnderecoMapa` (endereço completo do link do mapa). Se mudar a posição das linhas em `modelos/arte.html`, ajuste os cortes das faixas em `gerar-assinatura.ps1`. Os ajustes de enquadramento `-FotoZoom`, `-FotoDeslocX` e `-FotoDeslocY` usam pixels da arte de referência (1816 x 866). A foto é multiplicada sobre um cinza-claro para que fundos brancos não se confundam com o cartão. Textos longos têm a fonte reduzida automaticamente para não invadir a coluna de serviços.
 
 Para conferir sem depender do GitHub, execute `.\scripts\gerar-previas.ps1 -Empresa ecovolt` e abra `ecovolt/previews/`. Publique as imagens de `ecovolt/assets/` (inclusive `recortes/`) na branch `main` antes de copiar a assinatura para o e-mail.
