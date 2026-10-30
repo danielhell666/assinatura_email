@@ -15,14 +15,14 @@ Cada assinatura é uma imagem 2x com os dados embutidos, cortada em faixas de la
 | Faixa | Link |
 | --- | --- |
 | Logo, nome e cargo | site |
-| Telefone | `tel:+556139633959` |
+| Telefone | WhatsApp (`https://wa.me/556139633959`) |
 | E-mail | `mailto:` do e-mail da pessoa |
 | Site | site |
 | CNPJ | sem link |
 | Endereço | Google Maps (busca pelo endereço completo) |
 | Rodapé (Inovação, Eficiência, Tecnologia) | site |
 
-O link vale pela faixa inteira, não só pelo texto: tocar na foto, ao lado do telefone, também liga. O bloco de contatos tem telefone, e-mail, site, CNPJ e endereço resumido. A arte segue o modelo `fontes/Cartão Corporativo Grupo Ecovolt.png`. Os dados comuns vêm de `DADOS EMAIL.docx` e são os valores padrão do gerador.
+O link vale pela faixa inteira, não só pelo texto: tocar na foto, ao lado do telefone, também abre o WhatsApp. O bloco de contatos tem telefone, e-mail, site, CNPJ e endereço resumido. A arte segue o modelo `fontes/Cartão Corporativo Grupo Ecovolt.png` num formato mais baixo (760 x 226): moldura e foto reduzidas à esquerda, nome e contatos no centro, logo e serviços à direita e o rodapé redesenhado em vetor. Os dados comuns vêm de `DADOS EMAIL.docx` e são os valores padrão do gerador.
 
 ## Organização
 
@@ -50,13 +50,13 @@ Para uma pessoa avulsa:
 .\ecovolt\scripts\gerar-assinatura.ps1 -Nome "Daniel Nobre" -Cargo "Diretor Técnico" -Email "daniel.nobre@grupoecovolt.com.br" -Foto "ecovolt\assets\originais\daniel-nobre-foto.jpg" -FotoDeslocX 30 -FotoZoom 1.1
 ```
 
-O script usa o Chrome (ou o Edge) sem janela para capturar a arte em 1520 x 724 e grava:
+O script usa o Chrome (ou o Edge) sem janela para capturar a arte em 1520 x 452 e grava:
 
 - `assets/ecovolt-<nome>-assinatura.jpg`: imagem 2x inteira (os e-mails antigos apontam para ela);
 - `assets/recortes/ecovolt-<nome>-faixaN.jpg`: as faixas da assinatura;
 - `assinatura-ecovolt-<nome>.html`: assinatura com as faixas publicadas e seus links;
 - `previews/arte-<nome>.html` e `.png`: arte preenchida e captura bruta, para conferência (ignoradas pelo Git).
 
-Parâmetros opcionais com os dados comuns como padrão: `-Telefone`, `-Cnpj`, `-SiteUrl`, `-Endereco` (versão curta mostrada na arte) e `-EnderecoMapa` (endereço completo do link do mapa). Se mudar a posição das linhas em `modelos/arte.html`, ajuste os cortes das faixas em `gerar-assinatura.ps1`. Os ajustes de enquadramento `-FotoZoom`, `-FotoDeslocX` e `-FotoDeslocY` usam pixels da arte de referência (1816 x 866). A foto é multiplicada sobre um cinza-claro para que fundos brancos não se confundam com o cartão. Textos longos têm a fonte reduzida automaticamente para não invadir a coluna de serviços.
+Parâmetros opcionais com os dados comuns como padrão: `-Telefone`, `-Cnpj`, `-SiteUrl`, `-Endereco` (versão curta mostrada na arte) e `-EnderecoMapa` (endereço completo do link do mapa). Se mudar a posição das linhas em `modelos/arte.html`, ajuste os cortes das faixas em `gerar-assinatura.ps1`. Os ajustes de enquadramento `-FotoZoom`, `-FotoDeslocX` e `-FotoDeslocY` usam pixels da arte de referência (1816 x 866), antes da redução da moldura. A foto é multiplicada sobre um cinza-claro para que fundos brancos não se confundam com o cartão. Textos longos têm a fonte reduzida automaticamente para não invadir a coluna de serviços.
 
 Para conferir sem depender do GitHub, execute `.\scripts\gerar-previas.ps1 -Empresa ecovolt` e abra `ecovolt/previews/`. Publique as imagens de `ecovolt/assets/` (inclusive `recortes/`) na branch `main` antes de copiar a assinatura para o e-mail.

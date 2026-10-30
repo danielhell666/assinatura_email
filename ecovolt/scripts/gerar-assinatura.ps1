@@ -1,6 +1,6 @@
 # Gera a assinatura de uma pessoa: preenche modelos/arte.html, captura a arte em 2x
 # com o Chrome (ou Edge) sem janela, recorta em faixas de largura inteira e cria o HTML com
-# um link por faixa: telefone (tel:), e-mail (mailto:), mapa do endereco e site.
+# um link por faixa: WhatsApp (wa.me), e-mail (mailto:), mapa do endereco e site.
 [CmdletBinding()]
 param(
   [Parameter(Mandatory)] [string] $Nome,
@@ -83,14 +83,14 @@ foreach ($chave in $valores.Keys) { $arte = $arte.Replace($chave, $valores[$chav
 $artePath = Join-Path $previas "arte-$slug.html"
 Set-Content -LiteralPath $artePath -Value $arte -Encoding UTF8 -NoNewline
 
-# Captura 760 x 362 em escala 2; o tempo virtual espera fontes e imagens carregarem.
+# Captura 760 x 226 em escala 2; o tempo virtual espera fontes e imagens carregarem.
 $png = Join-Path $previas "arte-$slug.png"
 if (Test-Path -LiteralPath $png) { Remove-Item -LiteralPath $png }
 $perfil = Join-Path ([IO.Path]::GetTempPath()) "ecovolt-chrome-$PID"
 # O Chrome informa o arquivo gravado no stderr; no PowerShell 5.1 isso viraria erro com 'Stop'.
 $ErrorActionPreference = 'Continue'
 & $navegador --headless=new --disable-gpu --hide-scrollbars --no-first-run --user-data-dir="$perfil" `
-  --force-device-scale-factor=2 --window-size=760,362 --virtual-time-budget=5000 `
+  --force-device-scale-factor=2 --window-size=760,226 --virtual-time-budget=5000 `
   --screenshot="$png" ([Uri]::new($artePath).AbsoluteUri) 2>&1 | Out-Null
 $ErrorActionPreference = 'Stop'
 Remove-Item -LiteralPath $perfil -Recurse -Force -ErrorAction SilentlyContinue
@@ -99,7 +99,7 @@ if (-not (Test-Path -LiteralPath $png)) { throw 'A captura da arte falhou.' }
 $jpg = Join-Path $assets "ecovolt-$slug-assinatura.jpg"
 $imagem = [System.Drawing.Bitmap]::new($png)
 try {
-  if ($imagem.Width -ne 1520 -or $imagem.Height -ne 724) { throw "Captura com tamanho inesperado: $($imagem.Width)x$($imagem.Height)" }
+  if ($imagem.Width -ne 1520 -or $imagem.Height -ne 452) { throw "Captura com tamanho inesperado: $($imagem.Width)x$($imagem.Height)" }
   $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/jpeg' }
   $parametros = [System.Drawing.Imaging.EncoderParameters]::new(1)
   $parametros.Param[0] = [System.Drawing.Imaging.EncoderParameter]::new([System.Drawing.Imaging.Encoder]::Quality, [long] 90)
@@ -108,16 +108,16 @@ try {
   $imagem.Dispose()
 }
 
-# Faixas de largura inteira cortadas entre as linhas de contato (coordenadas da arte, 866 de altura).
+# Faixas de largura inteira cortadas entre as linhas de contato (coordenadas da arte, 540 de altura).
 # Cada contato com link ocupa a propria faixa; o restante leva o link do site.
 $travessao = [char]0x2014
-$escala = 724 / 866
-$cortes = 0, 508, 558, 602, 646, 690, 768, 866 | ForEach-Object { [int][math]::Round($_ * $escala) }
+$escala = 452 / 540.03
+$cortes = 0, 187, 237, 287, 337, 387, 437, 540.03 | ForEach-Object { [int][math]::Round($_ * $escala) }
 $digitos = $Telefone -replace '\D', ''
 $mapa = 'https://www.google.com/maps/search/?api=1&query=' + [Uri]::EscapeDataString($EnderecoMapa)
 $destinos = @(
   @{ Alt = "$Nome $travessao $Cargo | Grupo Ecovolt"; Link = $SiteUrl },
-  @{ Alt = "Telefone: $Telefone"; Link = "tel:+55$digitos" },
+  @{ Alt = "WhatsApp: $Telefone"; Link = "https://wa.me/55$digitos" },
   @{ Alt = "E-mail: $Email"; Link = "mailto:$Email" },
   @{ Alt = "Site: $($SiteUrl -replace '^https?://', '')"; Link = $SiteUrl },
   @{ Alt = "CNPJ $Cnpj" },

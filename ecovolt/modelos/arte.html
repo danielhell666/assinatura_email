@@ -4,62 +4,78 @@
   <meta charset="utf-8">
   <title>Arte — {{NOME}} | Grupo Ecovolt</title>
   <!-- Arte renderizada em imagem por scripts/gerar-assinatura.ps1. Coordenadas no
-       tamanho da arte de referencia (1816 x 866); a captura sai em 1520 x 724. -->
+       largura da arte de referencia (1816; altura 540); a captura sai em 1520 x 452. -->
   <style>
     @font-face { font-family: 'Montserrat'; src: url('{{MODELOS}}/tipos/Montserrat.ttf') format('truetype'); font-weight: 100 900; }
     @font-face { font-family: 'Open Sans'; src: url('{{MODELOS}}/tipos/OpenSans.ttf') format('truetype'); font-weight: 300 800; }
     html, body { margin: 0; padding: 0; background: #fefefe; overflow: hidden; }
-    svg { display: block; width: 760px; height: 362px; }
-    .nome { font: 700 70px 'Montserrat'; fill: #141414; }
-    .cargo { font: 400 44px 'Montserrat'; fill: #585758; }
-    .contato { font: 400 33px 'Open Sans'; fill: #1e1e1e; }
+    svg { display: block; width: 760px; height: 226px; }
+    .nome { font: 700 60px 'Montserrat'; fill: #141414; }
+    .cargo { font: 400 38px 'Montserrat'; fill: #585758; }
+    .contato { font: 400 30px 'Open Sans'; fill: #1e1e1e; }
+    .rodape { font: 400 22px 'Montserrat'; letter-spacing: 6px; fill: #ececec; text-anchor: middle; }
     .icone { fill: #88bc0c; }
     .icone-linha { fill: none; stroke: #88bc0c; stroke-width: 2; stroke-linejoin: round; }
   </style>
 </head>
 <body>
-  <svg viewBox="0 0 1816 866" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="1816" height="866" fill="#fefefe"/>
-    <!-- Moldura vetorial (modelos/moldura.json): formas de fundo, foto na janela e,
-         por cima, faixas verdes e filete branco cobrindo a borda da foto.
-         A foto e multiplicada sobre cinza-claro para fundos brancos nao sumirem no cartao. -->
-    {{MOLDURA_FUNDO}}
-    <clipPath id="janela"><path d="{{JANELA}}"/></clipPath>
-    <g clip-path="url(#janela)">
-      <rect x="60" y="20" width="580" height="800" fill="#e6e6e6"/>
-      <image href="{{FOTO}}" x="{{FOTO_X}}" y="{{FOTO_Y}}" width="{{FOTO_L}}" height="{{FOTO_A}}" preserveAspectRatio="xMidYMin slice" style="mix-blend-mode:multiply"/>
+  <svg viewBox="0 0 1816 540.03" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1816" height="540.03" fill="#fefefe"/>
+    <!-- Moldura vetorial (modelos/moldura.json) e inicio do rodape de base.png, reduzidos a 62%:
+         formas de fundo, foto na janela e, por cima, faixas verdes e filete branco cobrindo a
+         borda da foto. A foto e multiplicada sobre cinza-claro para fundos brancos nao sumirem. -->
+    <g transform="scale(0.62)">
+      {{MOLDURA_FUNDO}}
+      <clipPath id="janela"><path d="{{JANELA}}"/></clipPath>
+      <g clip-path="url(#janela)">
+        <rect x="60" y="20" width="580" height="800" fill="#e6e6e6"/>
+        <image href="{{FOTO}}" x="{{FOTO_X}}" y="{{FOTO_Y}}" width="{{FOTO_L}}" height="{{FOTO_A}}" preserveAspectRatio="xMidYMin slice" style="mix-blend-mode:multiply"/>
+      </g>
+      {{MOLDURA_FRENTE}}
+      <svg width="640" height="866"><image href="{{MODELOS}}/base.png" width="1816" height="866"/></svg>
     </g>
-    {{MOLDURA_FRENTE}}
-    <image href="{{MODELOS}}/base.png" width="1816" height="866"/>
-    <image href="{{LOGO}}" x="672" y="94" width="1000" height="225" preserveAspectRatio="xMinYMid meet"/>
-    <text class="nome" x="658" y="416" data-max="658">{{NOME}}</text>
-    <text class="cargo" x="660" y="463" data-max="658">{{CARGO}}</text>
-    <rect x="661" y="485" width="100" height="8" rx="4" class="icone"/>
-    <!-- Contatos: icones em caixa 24 x 24 ampliada para 36 px, linhas a cada 44 px.
+    <!-- Rodape: continua a faixa escura de base.png (y 777-843 reduzido) ate a ponta verde. -->
+    <path d="M380 481.7 H1650 L1609 522.7 H380 Z" fill="#363636"/>
+    <path d="M1650 481.7 H1766 Q1784 481.7 1771 493 L1745 515 Q1736 522.7 1722 522.7 H1609 Z" fill="#88bc0c"/>
+    <g class="rodape">
+      <text x="717" y="509.5">INOVA&#199;&#195;O</text>
+      <text x="982" y="509.5">EFICI&#202;NCIA</text>
+      <text x="1267" y="509.5">TECNOLOGIA</text>
+    </g>
+    <rect x="840" y="492" width="4" height="21" fill="#88bc0c"/>
+    <rect x="1114" y="492" width="4" height="21" fill="#88bc0c"/>
+    <!-- Coluna da direita: logo oficial e servicos recortados de base.png. -->
+    <image href="{{LOGO}}" x="1310" y="38" width="460" height="104" preserveAspectRatio="xMinYMid meet"/>
+    <svg x="1330" y="186" width="296" height="235" viewBox="1340 380 435 345"><image href="{{MODELOS}}/base.png" width="1816" height="866"/><rect x="1680" y="380" width="95" height="5" fill="#fefefe"/></svg>
+    <text class="nome" x="430" y="100" data-max="840">{{NOME}}</text>
+    <text class="cargo" x="432" y="146" data-max="840">{{CARGO}}</text>
+    <rect x="433" y="166" width="90" height="7" rx="3.5" class="icone"/>
+    <!-- Contatos: icones em caixa 24 x 24 ampliada para 30 px, linhas a cada 50 px.
          A posicao de cada linha define as faixas de link em scripts/gerar-assinatura.ps1. -->
-    <g transform="translate(665 518) scale(1.5)">
-      <path class="icone" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+    <g transform="translate(435 197) scale(1.25)">
+      <path class="icone-linha" d="M7.25 20.23 L2.5 21.5 L3.77 16.75 A9.5 9.5 0 1 1 7.25 20.23 Z"/>
+      <path class="icone" transform="translate(7.2 7.2) scale(0.4)" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
     </g>
-    <g transform="translate(665 562) scale(1.5)">
+    <g transform="translate(435 247) scale(1.25)">
       <rect class="icone-linha" x="2.5" y="5" width="19" height="14" rx="1.5"/>
       <path class="icone-linha" d="M3 6.5l9 6.5 9-6.5"/>
     </g>
-    <g transform="translate(665 606) scale(1.5)">
+    <g transform="translate(435 297) scale(1.25)">
       <circle class="icone-linha" cx="12" cy="12" r="9.5"/>
       <ellipse class="icone-linha" cx="12" cy="12" rx="4" ry="9.5"/>
       <path class="icone-linha" d="M2.5 12h19M4 7.5h16M4 16.5h16"/>
     </g>
-    <g transform="translate(665 650) scale(1.5)">
+    <g transform="translate(435 347) scale(1.25)">
       <path class="icone" d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
     </g>
-    <g transform="translate(665 696) scale(1.5)">
+    <g transform="translate(435 397) scale(1.25)">
       <path class="icone" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
     </g>
-    <text class="contato" x="738" y="547" data-max="582">{{TELEFONE}}</text>
-    <text class="contato" x="738" y="591" data-max="582">{{EMAIL}}</text>
-    <text class="contato" x="738" y="635" data-max="582">{{SITE}}</text>
-    <text class="contato" x="738" y="679" data-max="582">CNPJ {{CNPJ}}</text>
-    <text class="contato" x="738" y="723" data-max="582">{{ENDERECO}}</text>
+    <text class="contato" x="490" y="222" data-max="780">{{TELEFONE}}</text>
+    <text class="contato" x="490" y="272" data-max="780">{{EMAIL}}</text>
+    <text class="contato" x="490" y="322" data-max="780">{{SITE}}</text>
+    <text class="contato" x="490" y="372" data-max="780">CNPJ {{CNPJ}}</text>
+    <text class="contato" x="490" y="422" data-max="780">{{ENDERECO}}</text>
   </svg>
   <script>
     // Reduz a fonte de textos longos para nao invadir a coluna de servicos.
