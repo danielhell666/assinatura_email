@@ -3,12 +3,13 @@
 ## Versões prontas
 
 - [Charles Altair](assinatura-ecovolt-charles-altair.html)
+- [Daniel Reis](assinatura-ecovolt-daniel-reis.html)
 - [Paulo Soares](assinatura-ecovolt-paulo-soares.html)
 - [Rebeka Viana](assinatura-ecovolt-rebeka-viana.html)
 - [Vladimir Nogueira, PhD](assinatura-ecovolt-vladimir-nogueira-phd.html)
 - [Daniel Nobre](assinatura-ecovolt-daniel-nobre.html): **somente modelo de teste**, não é da equipe.
 
-Ainda sem foto: Daniel Reis, Nathalia Chaves e Erick Luttiery (os dados já estão em `equipe.csv`).
+Ainda sem foto: Nathalia Chaves e Erick Luttiery (os dados já estão em `equipe.csv`).
 
 Cada assinatura é uma imagem 2x com os dados embutidos, cortada em faixas de largura inteira empilhadas (mesma técnica da InovaThings, via `../scripts/recortes.ps1`). Cada faixa tem seu link:
 
